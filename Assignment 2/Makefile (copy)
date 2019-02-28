@@ -1,0 +1,23 @@
+CC = gcc
+COMPILER_FLAGS = -g
+LINKER_FLAGS = -g -lpthread -lm
+OSS = oss
+CHILD = child
+OBJS = oss.o time.o child.o
+OBJSCHILD = child.o time.o
+HEADERS = time.h
+
+all: $(OSS) $(USER)
+
+$(OSS): $(OBJS)
+	$(CC) -o $(OSS) $(OBJS) $(LINKER_FLAGS)
+
+$(CHILD): $(OBJSCHILD)
+	$(CC) -o $(BINARYUSER) $(OBJSCHILD) $(LINKER_FLAGS)
+
+%.o: %.c $(HEADERS)
+	$(CC) $(COMPILER_FLAGS) -c $<
+
+clean:
+	/bin/rm $(OBJS) $(OBJSCHILD) $(OSS) $(CHILD)
+
